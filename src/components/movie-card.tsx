@@ -37,9 +37,8 @@ export const MovieCard = ({
             src={movie.poster}
             height={160}
             alt="No way!"
-            withPlaceholder
             style={{ objectFit: "contain", objectPosition: "center" }}
-            placeholder={<Text>cannot load image</Text>}
+            placeholder={"cannot load image"}
           />
         </Card.Section>
 

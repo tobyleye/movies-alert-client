@@ -53,12 +53,11 @@ export default function GenerateDownloadLink() {
         movieDetails: Record<string, string>;
         downloadLinks: string[];
       } = await generateDownloadLink(movieLink);
-      console.log("data --", data);
       const { downloadLinks, movieDetails } = data;
       setDownloadLinks(downloadLinks);
       setMovieDetails(movieDetails);
     } catch (err) {
-      console.log(`we can't donwload link`);
+      console.error(`we can't download link`);
     } finally {
       setGeneratingDownloadLink(false);
     }

@@ -26,8 +26,8 @@ export default function RecentMovies() {
   useEffect(() => {
     const loadMovies = async () => {
       try {
-        let response = await $api.getRecentMovies();
-        let { data, lastPage } = response;
+        const response = await $api.getRecentMovies();
+        const { data, lastPage } = response;
         setMovies(data);
         setLastPage(lastPage);
       } catch (err) {
@@ -43,7 +43,7 @@ export default function RecentMovies() {
   const handlePageChange = async (page: number) => {
     try {
       setLoadingMore(true);
-      let { data } = await $api.getRecentMovies(page);
+      const { data } = await $api.getRecentMovies(page);
       setMovies(data);
       setCurrentPage(page);
     } catch (err) {
@@ -59,10 +59,10 @@ export default function RecentMovies() {
       <LoadingOverlay visible={loadingMore || blockPage} zIndex={1000} />
 
       <Grid justify="center">
-        <Grid.Col sm={6}>
+        <Grid.Col>
           <div>
             <h1 className="text-center mb-0">Recent movies</h1>
-            <Text align="center" size="sm" className="mb-8">
+            <Text size="sm" className="mb-8">
               Source: tfpdl
             </Text>
 
@@ -98,7 +98,7 @@ export default function RecentMovies() {
           </div>
         </Grid.Col>
 
-        <Grid.Col sm={12}>
+        <Grid.Col>
           <MoviesPaginator
             lastPage={lastPage}
             currentPage={currentPage}
