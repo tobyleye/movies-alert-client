@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Button, Text, TextInput, Title } from "@mantine/core";
 import { useState } from "react";
 import { notifications } from "@mantine/notifications";

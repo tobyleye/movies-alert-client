@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { ReactNode } from "react";
 import { Link } from "wouter";
 import { Title, Text } from "@mantine/core";

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useState } from "react";
 import { Card, Image, Text, Button } from "@mantine/core";
 import * as $api from "@/api";

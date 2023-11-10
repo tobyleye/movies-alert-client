@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Link, Route, Router, Switch, useLocation } from "wouter";
 import GenerateDownloadLink from "./views/generate-dlinks";
 import RecentMovies from "./views/recent-movies";

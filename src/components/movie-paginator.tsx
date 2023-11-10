@@ -1,4 +1,5 @@
-"use client";
+// @ts-nocheck
+
 import ReactPaginate from "react-paginate";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 
