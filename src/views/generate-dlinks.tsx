@@ -28,6 +28,8 @@ export default function GenerateDownloadLink() {
     string
   >>(null);
 
+  const [generatingDownloadLink, setGeneratingDownloadLink] = useState(false);
+
   const validateLink = () => {
     const validLinkRegex = /^(https?:\/\/)?tfpdl.se\/.*$/;
     if (movieLink && validLinkRegex.test(movieLink)) {
@@ -46,6 +48,7 @@ export default function GenerateDownloadLink() {
       return;
     }
     try {
+      setGeneratingDownloadLink(true);
       const data: {
         movieDetails: Record<string, string>;
         downloadLinks: string[];
@@ -56,6 +59,8 @@ export default function GenerateDownloadLink() {
       setMovieDetails(movieDetails);
     } catch (err) {
       console.log(`we can't donwload link`);
+    } finally {
+      setGeneratingDownloadLink(false);
     }
   };
 
@@ -83,6 +88,7 @@ export default function GenerateDownloadLink() {
 
   return (
     <div>
+      {/* <LoadingOverlay visible={generatingDownloadLink} zIndex={1000} /> */}
       <Title mb={20} size="h2">
         Movie Link Generator
       </Title>
@@ -141,7 +147,7 @@ export default function GenerateDownloadLink() {
               required
             />
             <div className="submit-btn">
-              <Button type="submit" size="lg">
+              <Button loading={generatingDownloadLink} type="submit" size="lg">
                 Generate
               </Button>
             </div>

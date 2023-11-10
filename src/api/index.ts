@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.DEV ? "http://localhost:5183/api" : "/api";
-
-console.log({ baseURL });
+const baseURL = import.meta.env.DEV
+  ? "http://localhost:5183/api"
+  : "https://tfpdwho.up.railway.app/api/";
 
 export const client = axios.create({
   baseURL: baseURL,
