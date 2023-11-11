@@ -13,9 +13,8 @@ export default function MovieDownloadLinks() {
     return getMovieDownloadLinks(movieSlug!);
   });
 
-  console.log("data --", data);
   return (
-    <div>
+    <div id="movie-download-links">
       {!isLoading ? (
         <div>
           {data ? (
