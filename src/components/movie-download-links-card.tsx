@@ -15,13 +15,14 @@ export function MovieDownloadLinksCard({
 }) {
   const shareLinks = () => {
     const data = {
-      url: window.location.host + `/dl/${movieDetails!.movieSlug}`,
+      url: `/dl/${movieDetails!.movieSlug}`,
       title: `Download ${movieDetails!.movieTitle} now`,
     };
     if ("share" in window.navigator) {
       window.navigator.share(data);
     } else {
-      copyToClipboard(data.url);
+      const url = window.location.origin + data.url;
+      copyToClipboard(url);
       notifications.show({
         color: "blue",
         title: "Page url copied",
