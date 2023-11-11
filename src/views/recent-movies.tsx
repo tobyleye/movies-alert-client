@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Alert,
   Text,
@@ -31,8 +31,6 @@ export default function RecentMovies() {
       }
     },
   });
-
-  console.log({ currentPage });
 
   return (
     <Box pos="relative">
