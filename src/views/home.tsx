@@ -29,14 +29,18 @@ const HomeLink = ({
       <style jsx>{`
         .home-link {
           color: #222;
+          transition: 0.25s ease;
         }
         .home-link :global(.link) {
           font-size: 20px;
           text-decoration: underline;
           color: inherit;
         }
+        .home-link:not(.disabled):hover {
+        }
+
         .home-link.disabled {
-          color: gray;
+          color: #af9595;
         }
       `}</style>
     </div>
@@ -47,7 +51,7 @@ export default function Home() {
     <div>
       <div className="home-container">
         <div className="home-heading">
-          <Title className="home-title">TFPDL who?</Title>
+          <Title className="home-title">TFPDL2x</Title>
           <Text>Tfpdl, but with more features</Text>
         </div>
         <div className="flex items-center justify-center">

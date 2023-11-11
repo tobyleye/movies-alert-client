@@ -32,3 +32,11 @@ export const generateDownloadLink = (url: string) => {
     .post("/generateDownloadLink", { url })
     .then((res) => res.data.data);
 };
+
+export const fetchRecentlyGeneratedMovies = () => {
+  return client.get("/recentlyGeneratedMovies").then((res) => res.data.data);
+};
+
+export const getMovieDownloadLinks = (movieSlug: string) => {
+  return client.get(`/dl/${movieSlug}`).then((res) => res.data.data);
+};

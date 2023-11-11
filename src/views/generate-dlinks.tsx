@@ -1,26 +1,10 @@
 // @ts-nocheck
-
-import { Button, Text, TextInput, Title } from "@mantine/core";
+import { Button, TextInput, Title } from "@mantine/core";
 import { useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { generateDownloadLink } from "@/api";
-
-const copyToClipboard = (text: string) => {
-  const input = document.createElement("input");
-  // Avoid scrolling to bottom
-  input.style.top = "0";
-  input.style.left = "0";
-  input.style.position = "fixed";
-  input.value = text;
-  document.body.appendChild(input);
-  // Select the input field
-  input.select();
-  input.setSelectionRange(0, 99999); // For mobile devices
-
-  // Copy the text inside the text field
-  navigator.clipboard.writeText(input.value);
-  input.remove();
-};
+import { MovieDownloadLinksCard } from "@/components/movie-download-links-card";
+// import useSWR from "swr";
 
 export default function GenerateDownloadLink() {
   const [movieLink, setMovieLink] = useState("");
@@ -65,23 +49,6 @@ export default function GenerateDownloadLink() {
     }
   };
 
-  const shareLinks = () => {
-    const data = {
-      url: window.location.host + `/dl/${movieDetails!.movieSlug}`,
-      title: `Download ${movieDetails!.movieTitle} now`,
-    };
-    if ("share" in window.navigator) {
-      window.navigator.share(data);
-    } else {
-      copyToClipboard(data.url);
-      notifications.show({
-        color: "blue",
-        title: "Page url copied",
-        message: "Share url with friends to enjoy movie",
-      });
-    }
-  };
-
   const clearLinks = () => {
     setMovieLink("");
     setDownloadLinks([]);
@@ -96,37 +63,11 @@ export default function GenerateDownloadLink() {
 
       {downloadLinks && downloadLinks.length > 0 ? (
         <div>
-          {movieDetails && (
-            <div className="movie-info">
-              <Title mb={4} size="h3">
-                {movieDetails.movieTitle}
-              </Title>
-              <Text mb={10} className="movie-description">
-                {movieDetails.movieDescription}
-              </Text>
-              <div>
-                <img className="movie-poster" src={movieDetails.moviePoster} />
-              </div>
-            </div>
-          )}
-          <div>
-            <Title size="h4">Download links</Title>
-            <ul className="generated-links">
-              {downloadLinks.map((link) => (
-                <li key={link}>
-                  <a href={link} target="_blank">
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="generated-links-btns">
-            <Button onClick={shareLinks}>Share</Button>
-            <Button onClick={clearLinks} color="red" variant="outline">
-              clear
-            </Button>
-          </div>
+          <MovieDownloadLinksCard
+            downloadLinks={downloadLinks}
+            movieDetails={movieDetails}
+            onClear={clearLinks}
+          />
         </div>
       ) : (
         <div>
@@ -153,6 +94,8 @@ export default function GenerateDownloadLink() {
               </Button>
             </div>
           </form>
+
+          {/* <RecentlyGeneratedMovies /> */}
         </div>
       )}
 
@@ -189,3 +132,27 @@ export default function GenerateDownloadLink() {
     </div>
   );
 }
+
+/*
+
+function RecentlyGeneratedMovies() {
+  const { data, isLoading } = useSWR("recentlyGeneratedMovies", () =>
+    fetchRecentlyGeneratedMovies()
+  );
+  console.log("data --", data);
+  console.log("is loading --", isLoading);
+
+  return (
+    <div>
+      <h3>Recent movies</h3>
+      {data ? (
+        <div>
+          {data.map((each, index) => {
+            return <div key={`rgm-${index}`}>{JSON.stringify(each)}</div>;
+          })}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+*/

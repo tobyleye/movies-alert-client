@@ -37,9 +37,10 @@ export const MovieCard = ({
         <Card.Section>
           <Image
             src={movie.poster}
-            height={160}
+            height={300}
             alt="No way!"
             style={{ objectFit: "contain", objectPosition: "center" }}
+            bg="lightgray"
             placeholder={"cannot load image"}
           />
         </Card.Section>

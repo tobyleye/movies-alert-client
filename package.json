@@ -20,6 +20,7 @@
     "react-icons": "^4.11.0",
     "react-paginate": "^8.2.0",
     "styled-jsx": "^5.1.2",
+    "swr": "^2.2.4",
     "wouter": "^2.12.1"
   },
   "devDependencies": {

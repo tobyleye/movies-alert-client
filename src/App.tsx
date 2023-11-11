@@ -12,6 +12,7 @@ import { ReactNode } from "react";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
 import { BsArrowLeft } from "react-icons/bs";
+import MovieDownloadLinks from "./views/movie-dlinks";
 
 const PageContainer = ({ children }: { children: ReactNode }) => {
   const [location] = useLocation();
@@ -27,7 +28,7 @@ const PageContainer = ({ children }: { children: ReactNode }) => {
             Back
           </Link>
         )}
-        <div className="page-title">TfpdlWho?</div>
+        <div className="page-title">Tfpdl2x</div>
       </header>
       <div className="page-body">{children}</div>
 
@@ -92,6 +93,9 @@ function App() {
               </Route>
               <Route path="/generate-dlinks">
                 <GenerateDownloadLink />
+              </Route>
+              <Route path="/dl/:movieSlug">
+                <MovieDownloadLinks />
               </Route>
             </Switch>
           </PageContainer>

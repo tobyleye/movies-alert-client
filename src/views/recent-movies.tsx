@@ -13,50 +13,31 @@ import * as $api from "@/api";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { MovieCard } from "@/components/movie-card";
 import { MoviesPaginator } from "@/components/movie-paginator";
+import useSWR from "swr";
 
 export default function RecentMovies() {
-  const [movies, setMovies] = useState([]);
-  const [errorLoadingMovies, setErrorLoadingMovies] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [lastPage, setLastPage] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [loadingMore, setLoadingMore] = useState(false);
   const [blockPage, setBlockPage] = useState(false);
 
-  useEffect(() => {
-    const loadMovies = async () => {
-      try {
-        const response = await $api.getRecentMovies();
-        const { data, lastPage } = response;
-        setMovies(data);
-        setLastPage(lastPage);
-      } catch (err) {
-        setErrorLoadingMovies(true);
-      } finally {
-        setLoading(false);
+  const {
+    data: { data: movies } = {},
+    isLoading,
+    error,
+  } = useSWR(["movies", currentPage], () => $api.getRecentMovies(currentPage), {
+    onSuccess(data) {
+      if (data && !lastPage) {
+        setLastPage(data.lastPage);
       }
-    };
+    },
+  });
 
-    loadMovies();
-  }, []);
-
-  const handlePageChange = async (page: number) => {
-    try {
-      setLoadingMore(true);
-      const { data } = await $api.getRecentMovies(page);
-      setMovies(data);
-      setCurrentPage(page);
-    } catch (err) {
-      console.log("error");
-    } finally {
-      setLoadingMore(false);
-    }
-  };
+  console.log({ currentPage });
 
   return (
     <Box pos="relative">
       <ScrollToTop key={currentPage} />
-      <LoadingOverlay visible={loadingMore || blockPage} zIndex={1000} />
+      <LoadingOverlay visible={isLoading || blockPage} zIndex={1000} />
 
       <Grid justify="center">
         <Grid.Col>
@@ -66,7 +47,7 @@ export default function RecentMovies() {
               Source: tfpdl
             </Text>
 
-            {loading ? (
+            {isLoading ? (
               <div
                 style={{
                   padding: "50px 0",
@@ -76,7 +57,7 @@ export default function RecentMovies() {
               >
                 <Loader />
               </div>
-            ) : errorLoadingMovies ? (
+            ) : error ? (
               <Alert style={{ textAlign: "center" }}>
                 Ahh sorry, ann error occured loading movies
               </Alert>
@@ -102,7 +83,7 @@ export default function RecentMovies() {
           <MoviesPaginator
             lastPage={lastPage}
             currentPage={currentPage}
-            onPageChange={handlePageChange}
+            onPageChange={(page) => setCurrentPage(page)}
           />
         </Grid.Col>
       </Grid>
