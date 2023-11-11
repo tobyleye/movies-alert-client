@@ -1,13 +1,9 @@
 import axios from "axios";
-
-const baseURL = import.meta.env.DEV
-  ? "http://localhost:5183/api"
-  : "https://tfpdwho.up.railway.app/api/";
+const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 
 export const client = axios.create({
-  baseURL: baseURL,
+  baseURL: apiBaseURL,
 });
-
 export const subscribe = ({
   movieTitle,
   email,
