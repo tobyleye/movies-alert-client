@@ -38,7 +38,7 @@ export default function MovieDownloadLinks() {
           </div>
         </div>
       ) : (
-        <LoadingOverlay />
+        <LoadingOverlay visible={isLoading} />
       )}
 
       <style jsx>{`
